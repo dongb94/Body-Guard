@@ -6,6 +6,25 @@ using UnityEngine;
 
 public class CustomCoroutine : MonoBehaviour
 {
+    private float _operatingTime;
+    private float _elapsedTime;
+    private float _delayTime;
+
+    private void Awake()
+    {
+        _operatingTime = 0;
+        _elapsedTime = 0;
+        _delayTime = 0;
+    }
+
+    public void OnPulling()
+    {
+        _operatingTime = 0;
+        _elapsedTime = 0;
+        _delayTime = 0;
+    }
+
+    /* legacy
     /// <summary>
     /// 
     /// </summary>
@@ -21,10 +40,10 @@ public class CustomCoroutine : MonoBehaviour
         if (frame <= 0) throw new UnityException("Coroutine Frame Under 0 : " + frame.ToString());
         var delayOfEvent = coroutineRunTime/frame;
 
-        MakeCoroutine(ref variable, start, end, frame, delayOfEvent);
+        MakeCoroutine(out variable, start, end, frame, delayOfEvent);
     }
 
-    private static IEnumerator MakeCoroutine<T>(ref T variable, T start, T end, int frame, float delayOfEvent) where T : IComparable 
+    private static IEnumerator MakeCoroutine<T>(out T variable, T start, T end, int frame, float delayOfEvent) where T : IComparable 
     {
 //        switch (variable.GetType())
 //        {
@@ -47,4 +66,5 @@ public class CustomCoroutine : MonoBehaviour
 
         yield return null;
     }
+    */
 }
