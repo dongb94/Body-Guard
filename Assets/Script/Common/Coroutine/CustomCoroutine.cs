@@ -10,14 +10,7 @@ public class CustomCoroutine : MonoBehaviour
     private float _elapsedTime;
     private float _delayTime;
 
-    private void Awake()
-    {
-        _operatingTime = 0;
-        _elapsedTime = 0;
-        _delayTime = 0;
-    }
-
-    public void OnPulling()
+    public void OnPooling()
     {
         _operatingTime = 0;
         _elapsedTime = 0;
