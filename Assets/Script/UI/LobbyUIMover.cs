@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.Internal.Experimental.UIElements;
 
 public class LobbyUIMover : Singleton<LobbyUIMover>
@@ -22,6 +23,14 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
         StageSelect01, // Stage Map of Normal Difficulty
         
         Credit,
+    }
+
+    private void LateUpdate()
+    {
+        if (_lobbyUIState != LobbyState.StageSelect01) return;
+        StagePanel.localPosition += Vector3.down * Input.GetAxis("Mouse ScrollWheel") * 100;
+        if(Input.GetKey(KeyCode.UpArrow)||Input.GetKey(KeyCode.W)) StagePanel.localPosition += Vector3.down;
+        else if(Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S)) StagePanel.localPosition += Vector3.up;
     }
 
     protected override void Initialize()
