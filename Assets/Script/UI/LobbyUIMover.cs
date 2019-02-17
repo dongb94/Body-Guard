@@ -60,48 +60,54 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
 
     public void ToMain()
     {
-        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
+        var startPositionOfMainPanel = MainPanel.localPosition;
+        var startPositionOfStagePanel = StagePanel.localPosition;
         coroutine.SetAction(() =>
         {
             MainPanel.localPosition =
-                coroutine.Change(MainPanel.localPosition, new Vector3(0, 0, 0));
+                coroutine.Change(startPositionOfMainPanel, new Vector3(0, 0, 0));
             StagePanel.localPosition =
-                coroutine.Change(StagePanel.localPosition, new Vector3(0, 0, 0));
+                coroutine.Change(startPositionOfStagePanel, new Vector3(0, 0, 0));
         });
         coroutine.SetTrigger();
     }
     
     public void ToOption()
     {
-        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
+        var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
         {
             MainPanel.localPosition =
-                coroutine.Change(MainPanel.localPosition, new Vector3(-1000, 0, 0));
+                coroutine.Change(startPositionOfMainPanel, new Vector3(-1000, 0, 0));
         });
         coroutine.SetTrigger();
     }
     
     public void ToCredit()
     {
-        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
+        var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
         {
             MainPanel.localPosition =
-                coroutine.Change(MainPanel.localPosition, new Vector3(1000, 0, 0));
+                coroutine.Change(startPositionOfMainPanel, new Vector3(1000, 0, 0));
         });
         coroutine.SetTrigger();
     }
     
     public void ToStageSelect()
     {
-        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
+        var startPositionOfMainPanel = MainPanel.localPosition;
+        var startPositionOfStagePanel = StagePanel.localPosition;
         coroutine.SetAction(() =>
         {
             MainPanel.localPosition =
-                coroutine.Change(MainPanel.localPosition, new Vector3(0, 0, -500));
+                coroutine.Change(startPositionOfMainPanel, new Vector3(0, 0, -500));
             StagePanel.localPosition =
-                coroutine.Change(StagePanel.localPosition, new Vector3(0, -185, -350));
+                coroutine.Change(startPositionOfStagePanel, new Vector3(0, -185, -350));
         });
         coroutine.SetTrigger();
     }
