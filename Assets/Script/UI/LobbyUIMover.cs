@@ -2,10 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Internal.Experimental.UIElements;
 
 public class LobbyUIMover : Singleton<LobbyUIMover>
 {
     private LobbyState _lobbyUIState;
+
+    public Transform MainPanel;
+    public Transform StagePanel;
     
     public enum LobbyState
     {
@@ -52,5 +56,53 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
             
             _lobbyUIState = value;
         }
+    }
+
+    public void ToMain()
+    {
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        coroutine.SetAction(() =>
+        {
+            MainPanel.localPosition =
+                coroutine.Change(MainPanel.localPosition, new Vector3(0, 0, 0));
+            StagePanel.localPosition =
+                coroutine.Change(StagePanel.localPosition, new Vector3(0, 0, 0));
+        });
+        coroutine.SetTrigger();
+    }
+    
+    public void ToOption()
+    {
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        coroutine.SetAction(() =>
+        {
+            MainPanel.localPosition =
+                coroutine.Change(MainPanel.localPosition, new Vector3(-1000, 0, 0));
+        });
+        coroutine.SetTrigger();
+    }
+    
+    public void ToCredit()
+    {
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        coroutine.SetAction(() =>
+        {
+            MainPanel.localPosition =
+                coroutine.Change(MainPanel.localPosition, new Vector3(1000, 0, 0));
+        });
+        coroutine.SetTrigger();
+    }
+    
+    public void ToStageSelect()
+    {
+        var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(10f, 0.01f);
+        coroutine.SetAction(() =>
+        {
+            MainPanel.localPosition =
+                coroutine.Change(MainPanel.localPosition, new Vector3(0, 0, -500));
+            StagePanel.localPosition =
+                coroutine.Change(StagePanel.localPosition, new Vector3(0, -185, -350));
+        });
+        coroutine.SetTrigger();
     }
 }
