@@ -10,6 +10,8 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
 
     public Transform MainPanel;
     public Transform StagePanel;
+
+    [NonSerialized]public bool Handle;
     
     public enum LobbyState
     {
@@ -60,6 +62,8 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
 
     public void ToMain()
     {
+        if(Handle) return;
+        Handle = true;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         var startPositionOfStagePanel = StagePanel.localPosition;
@@ -70,11 +74,14 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
             StagePanel.localPosition =
                 coroutine.Change(startPositionOfStagePanel, new Vector3(0, 0, 0));
         });
+        coroutine.SetExitAction(() => Handle = false);
         coroutine.SetTrigger();
     }
     
     public void ToOption()
     {
+        if(Handle) return;
+        Handle = true;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
@@ -82,11 +89,14 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
             MainPanel.localPosition =
                 coroutine.Change(startPositionOfMainPanel, new Vector3(-1000, 0, 0));
         });
+        coroutine.SetExitAction(() => Handle = false);
         coroutine.SetTrigger();
     }
     
     public void ToCredit()
     {
+        if(Handle) return;
+        Handle = true;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
@@ -94,11 +104,14 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
             MainPanel.localPosition =
                 coroutine.Change(startPositionOfMainPanel, new Vector3(1000, 0, 0));
         });
+        coroutine.SetExitAction(() => Handle = false);
         coroutine.SetTrigger();
     }
     
     public void ToStageSelect()
     {
+        if(Handle) return;
+        Handle = true;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         var startPositionOfStagePanel = StagePanel.localPosition;
@@ -109,6 +122,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
             StagePanel.localPosition =
                 coroutine.Change(startPositionOfStagePanel, new Vector3(0, -185, -350));
         });
+        coroutine.SetExitAction(() => Handle = false);
         coroutine.SetTrigger();
     }
 }
