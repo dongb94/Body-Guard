@@ -14,6 +14,8 @@ public class CustomCoroutine : MonoBehaviour
     private float _afterLastUpdateTime;
 
     private Action _coroutineAction;
+    private Action _startAction;
+    private Action _exitAction;
 
     private void Update()
     {
@@ -31,6 +33,7 @@ public class CustomCoroutine : MonoBehaviour
 
         if (_operatingTime <= _elapsedTime)
         {
+            _exitAction.Invoke();
             _isOnCoroutine = false;
             CoroutineFactory.GetInstance.PoolCoroutine(this);
             _coroutineAction = null;
@@ -44,6 +47,8 @@ public class CustomCoroutine : MonoBehaviour
         _delayTime = 0;
         _afterLastUpdateTime = 0;
         _coroutineAction = null;
+        _startAction = null;
+        _exitAction = null;
     }
 
     public void SetCoroutine(Action action, float operatingTime, float delayTime)
@@ -56,11 +61,22 @@ public class CustomCoroutine : MonoBehaviour
     public void SetTrigger()
     {
         _isOnCoroutine = true;
+        _startAction.Invoke();
     }
 
     public void SetAction(Action action)
     {
         _coroutineAction = action;
+    }
+    
+    public void SetStartAction(Action action)
+    {
+        _startAction = action;
+    }
+    
+    public void SetExitAction(Action action)
+    {
+        _exitAction = action;
     }
 
     public float Change(float start, float end)
