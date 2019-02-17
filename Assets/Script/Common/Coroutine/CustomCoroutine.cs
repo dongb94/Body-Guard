@@ -27,13 +27,13 @@ public class CustomCoroutine : MonoBehaviour
 
         if (_afterLastUpdateTime >= _delayTime)
         {
-            _coroutineAction.Invoke();
+            _coroutineAction?.Invoke();
             _afterLastUpdateTime = 0;
         }
 
         if (_operatingTime <= _elapsedTime)
         {
-            _exitAction.Invoke();
+            _exitAction?.Invoke();
             _isOnCoroutine = false;
             CoroutineFactory.GetInstance.PoolCoroutine(this);
             _coroutineAction = null;
@@ -61,7 +61,7 @@ public class CustomCoroutine : MonoBehaviour
     public void SetTrigger()
     {
         _isOnCoroutine = true;
-        _startAction.Invoke();
+        _startAction?.Invoke();
     }
 
     public void SetAction(Action action)
