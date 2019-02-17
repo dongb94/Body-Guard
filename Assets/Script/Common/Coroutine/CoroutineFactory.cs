@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -11,12 +12,14 @@ public class CoroutineFactory : Singleton<CoroutineFactory>
         _waitingCoroutineGroup = new Queue<CustomCoroutine>();
     }
 
-    public CustomCoroutine CreateCoroutine()
+    public CustomCoroutine CreateCoroutine(Action action, float operatingTime, float delayTime = 0.1f) // 코루틴 설정 인자값 추가
     {
         var pooledCoroutine = _waitingCoroutineGroup.Count > 0? _waitingCoroutineGroup.Dequeue() : Instantiate(_makeCoroutine);
         pooledCoroutine.transform.parent = transform;
         
         pooledCoroutine.OnPooling();
+        
+        pooledCoroutine.SetCoroutine(action, operatingTime, delayTime);
 
         return pooledCoroutine;
     }

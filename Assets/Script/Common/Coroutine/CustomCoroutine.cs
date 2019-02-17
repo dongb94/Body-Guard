@@ -6,18 +6,80 @@ using UnityEngine;
 
 public class CustomCoroutine : MonoBehaviour
 {
+    private bool _isOnCoroutine;
+    
     private float _operatingTime;
     private float _elapsedTime;
     private float _delayTime;
+    private float _afterLastUpdateTime;
+
+    private Action _coroutineAction;
+
+    private void Update()
+    {
+        if (!_isOnCoroutine) return;
+
+        _afterLastUpdateTime += Time.fixedDeltaTime;
+        _elapsedTime += Time.fixedDeltaTime;
+        _elapsedTime = Math.Min(_elapsedTime, _operatingTime);
+
+        if (_afterLastUpdateTime >= _delayTime)
+        {
+            _coroutineAction.Invoke();
+            _afterLastUpdateTime = 0;
+        }
+
+        if (_operatingTime <= _elapsedTime)
+        {
+            _isOnCoroutine = false;
+            CoroutineFactory.GetInstance.PoolCoroutine(this);
+            _coroutineAction = null;
+        }
+    }
 
     public void OnPooling()
     {
         _operatingTime = 0;
         _elapsedTime = 0;
         _delayTime = 0;
+        _afterLastUpdateTime = 0;
+        _coroutineAction = null;
     }
 
-    /* legacy
+    public void SetCoroutine(Action action, float operatingTime, float delayTime)
+    {
+        _operatingTime = operatingTime;
+        _delayTime = delayTime;
+        _coroutineAction = action;
+    }
+
+    public void SetTrigger()
+    {
+        _isOnCoroutine = true;
+    }
+
+    public void SetAction(Action action)
+    {
+        _coroutineAction = action;
+    }
+
+    public float Change(float start, float end)
+    {
+        return start + (end - start) * (_elapsedTime / _operatingTime);
+    }
+    
+    public int Change(int start, int end)
+    {
+        return start + (int)((end - start) * (_elapsedTime / _operatingTime));
+    }
+    
+    public Vector3 Change(Vector3 start, Vector3 end)
+    {
+        return start + (end - start) * _elapsedTime / _operatingTime;
+    }
+}
+
+/*  Legacy
     /// <summary>
     /// 
     /// </summary>
@@ -60,4 +122,3 @@ public class CustomCoroutine : MonoBehaviour
         yield return null;
     }
     */
-}
