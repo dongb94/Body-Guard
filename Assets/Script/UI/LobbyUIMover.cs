@@ -85,7 +85,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     public void ToMain()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.Main;
+        LobbyUIState = LobbyState.Main;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         var startPositionOfStagePanel = StagePanel.localPosition;
@@ -104,7 +104,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     public void ToOption()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.Option;
+        LobbyUIState = LobbyState.Option;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
@@ -119,7 +119,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     public void ToCredit()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.Credit;
+        LobbyUIState = LobbyState.Credit;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
@@ -134,7 +134,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     public void ToStageSelect()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.StageSelect01;
+        LobbyUIState = LobbyState.StageSelect01;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         var startPositionOfStagePanel = StagePanel.localPosition;
