@@ -8,9 +8,11 @@ using UnityEngine.Internal.Experimental.UIElements;
 public class LobbyUIMover : Singleton<LobbyUIMover>
 {
     private LobbyState _lobbyUIState;
-
+    //main panel
     public Transform MainPanel;
+    //stage panel
     public Transform StagePanel;
+    public Transform BackToMainButton;
 
     [NonSerialized]public bool Handle;
     
@@ -29,8 +31,17 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     {
         if (_lobbyUIState != LobbyState.StageSelect01) return;
         StagePanel.localPosition += Vector3.down * Input.GetAxis("Mouse ScrollWheel") * 100;
-        if(Input.GetKey(KeyCode.UpArrow)||Input.GetKey(KeyCode.W)) StagePanel.localPosition += Vector3.down;
-        else if(Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S)) StagePanel.localPosition += Vector3.up;
+        BackToMainButton.localPosition -= Vector3.down * Input.GetAxis("Mouse ScrollWheel") * 100;
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        {
+            StagePanel.localPosition += Vector3.down;
+            BackToMainButton.localPosition += Vector3.up;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+        {
+            StagePanel.localPosition += Vector3.up;
+            BackToMainButton.localPosition += Vector3.down;
+        }
     }
 
     protected override void Initialize()
@@ -59,6 +70,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
                 case LobbyState.DifficultySelect:
                     break;
                 case LobbyState.StageSelect01:
+                    BackToMainButton.localPosition = new Vector3(-90,220,0);
                     break;
                 case LobbyState.Credit:
                     break;
@@ -73,7 +85,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     public void ToMain()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.Main;
+        LobbyUIState = LobbyState.Main;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         var startPositionOfStagePanel = StagePanel.localPosition;
@@ -86,12 +98,13 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
         });
         coroutine.SetExitAction(() => Handle = false);
         coroutine.SetTrigger();
+        BackToMainButton.gameObject.SetActive(false);
     }
     
     public void ToOption()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.Option;
+        LobbyUIState = LobbyState.Option;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
@@ -106,7 +119,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     public void ToCredit()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.Credit;
+        LobbyUIState = LobbyState.Credit;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         coroutine.SetAction(() =>
@@ -121,7 +134,7 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
     public void ToStageSelect()
     {
         if(Handle) return;
-        _lobbyUIState = LobbyState.StageSelect01;
+        LobbyUIState = LobbyState.StageSelect01;
         var coroutine = CoroutineFactory.GetInstance.CreateCoroutine(2f, 0.01f);
         var startPositionOfMainPanel = MainPanel.localPosition;
         var startPositionOfStagePanel = StagePanel.localPosition;
@@ -134,5 +147,6 @@ public class LobbyUIMover : Singleton<LobbyUIMover>
         });
         coroutine.SetExitAction(() => Handle = false);
         coroutine.SetTrigger();
+        BackToMainButton.gameObject.SetActive(true);
     }
 }
