@@ -1692,6 +1692,7 @@ GameObject:
   - component: {fileID: 1539747531}
   - component: {fileID: 1539747530}
   - component: {fileID: 1539747532}
+  - component: {fileID: 1539747533}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -2337,6 +2338,34 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+--- !u!114 &1539747533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539747528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21a602e07fc431cbc0a2e99376fe2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showWallMark: 0
+  showPath: 0
+  WallMark: {fileID: 385922620}
+  PathMark: {fileID: 1539747528}
+  pathMode: 1
+  walkMode: 1
+  Radius: 0.1
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  player: {fileID: 1993386483}
+  smoothMoveSpeed: 5
+  StepByStepInterval: 0.5
+  tilemapStart: {x: -9, y: -5}
+  tilemapEnd: {x: 8, y: 4}
+  walkDirec: 0
 --- !u!1 &1541620151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2535,7 +2564,6 @@ GameObject:
   - component: {fileID: 1993386481}
   - component: {fileID: 1993386480}
   - component: {fileID: 1993386479}
-  - component: {fileID: 1993386478}
   - component: {fileID: 1993386484}
   m_Layer: 8
   m_Name: Slime_0
@@ -2544,34 +2572,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1993386478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993386477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21a602e07fc431cbc0a2e99376fe2c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showWallMark: 0
-  showPath: 0
-  WallMark: {fileID: 385922620}
-  PathMark: {fileID: 1539747528}
-  pathMode: 1
-  walkMode: 1
-  Radius: 0.4
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  player: {fileID: 1993386483}
-  smoothMoveSpeed: 5
-  StepByStepInterval: 0.5
-  tilemapStart: {x: -10, y: 10}
-  tilemapEnd: {x: 10, y: -10}
-  walkDirec: 0
 --- !u!114 &1993386479
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -237,7 +237,6 @@ public class NavigationForTilemap : MonoBehaviour
 
 	void OnMouseDown ()
 	{
-		Debug.Log("mouse down");
 		Vector3 world = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		destPos = world;
 		StopAllCoroutines ();
